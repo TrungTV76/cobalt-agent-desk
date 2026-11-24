@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cobalt-agent-desk"
+version = "0.1.0"
+description = "Zero-dependency, read-only local control desk for Claude Code, Subagents, and Antigravity sessions."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "TrungTV76" }]
+keywords = [
+  "ai-agents",
+  "claude-code",
+  "antigravity",
+  "vibe-coding",
+  "observability",
+  "dashboard",
+  "sse",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: System :: Monitoring",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/TrungTV76/cobalt-agent-desk"
+Repository = "https://github.com/TrungTV76/cobalt-agent-desk"
+Issues = "https://github.com/TrungTV76/cobalt-agent-desk/issues"
+
+[project.scripts]
+cobalt-agent-desk = "cobalt_desk.server:main"
+cobalt-desk = "cobalt_desk.server:main"
+
+[tool.setuptools.packages.find]
+include = ["cobalt_desk*"]
+
+[tool.setuptools.package-data]
+cobalt_desk = ["ui/*", "ui/fonts/*"]

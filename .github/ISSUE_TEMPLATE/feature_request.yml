@@ -1,0 +1,17 @@
+name: Feature / UX Idea
+description: Suggest a grouping view, alert, token metric, or workflow improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What workflow pain point does this solve?
+      placeholder: "When running multiple agents in parallel, I wish I could..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed UX / behavior
+      placeholder: "Describe how it should work while keeping zero external dependencies & read-only safety..."

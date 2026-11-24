@@ -1,0 +1,28 @@
+name: Bug Report
+description: Report an inaccurate model/state detection, cross-platform issue, or UI bug
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Privacy reminder:** Never paste real API keys, private file paths, or proprietary prompts. Use `--demo` or anonymized `.jsonl` snippets!
+  - type: input
+    id: env
+    attributes:
+      label: OS, Python version & Browser
+      placeholder: "e.g., macOS 15.2 / Ubuntu 24.04 / Windows 11 · Python 3.12 · Chrome"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What happened vs. what you expected?
+      placeholder: "Describe the issue clearly..."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal anonymized reproduction (optional)
+      render: json

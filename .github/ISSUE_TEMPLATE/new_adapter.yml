@@ -1,0 +1,24 @@
+name: New Agent Adapter Request
+description: Propose or volunteer an adapter for Codex CLI, Cursor, Cline, Windsurf, OpenCode, Aider, etc.
+title: "[Adapter]: Support "
+labels: ["enhancement", "adapter", "help wanted"]
+body:
+  - type: input
+    id: tool_name
+    attributes:
+      label: AI Coding Tool Name
+      placeholder: "e.g., OpenAI Codex CLI / Cursor / Cline / OpenCode / Gemini CLI"
+    validations:
+      required: true
+  - type: textarea
+    id: log_location
+    attributes:
+      label: Where does this tool store local session logs / state?
+      placeholder: "e.g., ~/.codex/sessions/*.jsonl or SQLite / JSON path on macOS, Linux, Windows"
+    validations:
+      required: true
+  - type: textarea
+    id: sample_schema
+    attributes:
+      label: Sample anonymized record structure (optional)
+      placeholder: "Paste a sanitized 5-10 line sample showing model, tool call, or status fields..."

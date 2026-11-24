@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }} · Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set up Node.js (for JS syntax check)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check JavaScript syntax & LF line endings on start.sh
+        shell: python
+        run: |
+          import pathlib, subprocess, sys
+          for js in sorted(pathlib.Path("cobalt_desk/ui").glob("*.js")):
+              subprocess.run(["node", "--check", str(js)], check=True)
+          sh_bytes = pathlib.Path("scripts/start.sh").read_bytes()
+          if b"\r\n" in sh_bytes:
+              sys.exit("Error: scripts/start.sh contains CRLF line endings!")
+          print("JS syntax and start.sh LF check OK")
+
+      - name: Run isolated unit & security test suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Verify zero-dependency wheel package, bundled UI assets & CLI entrypoint
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --no-build-isolation --no-deps .
+          cobalt-agent-desk --help
+          python -c "import importlib.resources as r; p = r.files('cobalt_desk') / 'ui' / 'index.html'; assert p.is_file(), p"
